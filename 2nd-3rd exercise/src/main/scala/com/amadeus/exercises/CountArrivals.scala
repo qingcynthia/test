@@ -2,12 +2,17 @@ package com.amadeus.exercise
 
 import org.apache.spark.sql.SQLContext
 import org.apache.spark.sql.functions._
-import com.amadeus.exercises.MySparkContext
+import org.apache.spark.SparkContext
+import org.apache.spark.SparkConf
 
 object CountArrivals {
+  def createSparkContext: SparkContext = {
+    val sparkConf = new SparkConf().setAppName("Ex2").setMaster("local[*]")
+    new SparkContext(sparkConf)
+  }
 
   def main(args: Array[String]) {
-    val sc = MySparkContext.createSparkContext
+    val sc = createSparkContext
     val sqlContext = new SQLContext(sc)
 
     val bookings = sqlContext.read
